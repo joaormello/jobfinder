@@ -18,3 +18,24 @@ def criar_vaga():
 
     db.close()
     print("Vaga criada com sucesso !")
+
+
+def listar_vagas():
+    db = SessionLocal()
+
+    try:
+        return db.query(Vaga).all()
+    finally:
+        db.close() 
+
+
+def buscar_vaga_por_id(vaga_id):
+    db = SessionLocal()
+
+    try:
+        return db.query(Vaga).filter(
+            Vaga.id == vaga_id
+            ).first()
+    finally:
+        db.close()
+
