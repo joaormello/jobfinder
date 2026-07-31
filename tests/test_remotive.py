@@ -2,10 +2,12 @@ from app.scrapers.remotive import buscar_vagas_remotive, normalizar_vaga
 
 dados = buscar_vagas_remotive()
 
-vagas = dados["jobs"][:10]
+vaga = dados["jobs"][0]
 
-for vaga in vagas:
-    vaga_normalizada = normalizar_vaga(vaga)
+print(vaga["url"] == "https://remotive.com/remote-jobs/design/senior-graphic-designer-2091081")
 
-    print(vaga_normalizada)
-    print("-" *50)
+print(vaga["url"])
+print(len(vaga["url"]))
+
+for caractere in vaga["url"][:20]:
+    print(caractere)
