@@ -12,7 +12,7 @@ def importar_remotive ():
     print('Importação Remotive finalizada !')
 
 def importar_adzuna():
-    dados = buscar_vagas_adzuna
+    dados = buscar_vagas_adzuna()
     vagas = dados["results"][:10]
 
     for vaga in vagas :

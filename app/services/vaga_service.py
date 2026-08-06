@@ -46,6 +46,14 @@ def salvar_vaga(vaga_dados):
         return
     db = SessionLocal()
 
+    if vaga_ja_existe_por_conteudo(
+        vaga["titulo"],
+        vaga["empresa"],
+        vaga["localizacao"]
+    ):
+        print("Vaga duplicada entre fontes.")
+        return
+
     try:
         vaga = Vaga(
             titulo = vaga_dados["titulo"],
@@ -102,4 +110,20 @@ def contar_vagas():
     finally:
         db.close()
 
-        
+
+
+def vaga_ja_existe_por_conteudo (
+        titulo, 
+        empresa, 
+        localizacao
+):
+    db = SessionLocal()
+
+    try :
+        return db.query(Vaga).filter(
+            Vaga.titulo == titulo, 
+            Vaga.empresa == empresa, 
+            Vaga.localizacao == localizacao
+        ).first()
+    finally:
+        db.close()
