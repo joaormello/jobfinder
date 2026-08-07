@@ -128,3 +128,14 @@ def vaga_ja_existe_por_conteudo (
         ).first()
     finally:
         db.close()
+
+
+def buscar_vaga_por_titulo(titulo):
+    db = SessionLocal()
+
+    try:
+        return db.query(Vaga).filter(
+            Vaga.titulo.ilike(f"%{titulo}%")
+        ).all()
+    finally:
+        db.close()
