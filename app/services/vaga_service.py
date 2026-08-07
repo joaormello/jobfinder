@@ -42,17 +42,18 @@ def buscar_vaga_por_id(vaga_id):
 
 def salvar_vaga(vaga_dados):
     if vaga_ja_existe(vaga_dados["link"]):
-        print("Vaga já cadastrada.")
-        return
-    db = SessionLocal()
+        
+        return "duplicada_link"
+    
 
     if vaga_ja_existe_por_conteudo(
-        vaga["titulo"],
-        vaga["empresa"],
-        vaga["localizacao"]
+        vaga_dados["titulo"],
+        vaga_dados["empresa"],
+        vaga_dados["localizacao"]
     ):
-        print("Vaga duplicada entre fontes.")
-        return
+        
+        return "duplicada_conteudo"
+    db = SessionLocal()
 
     try:
         vaga = Vaga(
@@ -65,7 +66,7 @@ def salvar_vaga(vaga_dados):
         )
         db.add(vaga)
         db.commit()
-        print(f"Vaga '{vaga.titulo}' salva com sucesso!")
+        return "salva"
 
     finally:
         db.close()
